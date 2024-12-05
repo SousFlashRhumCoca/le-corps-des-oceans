@@ -1,30 +1,22 @@
 import { Component, isDevMode } from '@angular/core';
 import { NgtCanvas } from 'angular-three';
-import { AnatomyComponent } from './anatomy/anatomy.component';
 
-import { H } from 'highlight.run';
-
-if (!isDevMode()) {
-  H.init('jgo9vv6g', {
-    environment: 'production',
-    networkRecording: {
-      enabled: true,
-      recordHeadersAndBody: true,
-      urlBlocklist: [
-        // TODO: insert full or partial urls that you don't want to record here
-      ],
-    },
-  });
-}
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {AnatomyComponent} from './anatomy/anatomy.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   template: `
-    <ngt-canvas [sceneGraph]="sceneGraph" />
+    <nav>
+        <a routerLink="/Anatomy">Anatomy</a>
+        <a routerLink="/Meteo">Meteo</a>
+    </nav>
+    <router-outlet></router-outlet>
+    
   `,
   host: { class: 'block h-dvh w-full' },
-  imports: [NgtCanvas],
+  imports: [NgtCanvas, RouterOutlet, RouterLink],
 })
 export class AppComponent {
   sceneGraph = AnatomyComponent;
