@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, isDevMode } from '@angular/core';
 import { NgtCanvas } from 'angular-three';
 import { Experience } from './experience/experience.component';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {AnatomyComponent} from './anatomy/anatomy.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,5 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   imports: [NgtCanvas, RouterOutlet, RouterLink],
 })
 export class AppComponent {
-  sceneGraph = Experience;
-
+  sceneGraph = AnatomyComponent;
 }

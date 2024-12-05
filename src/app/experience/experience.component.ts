@@ -10,9 +10,8 @@ import {
 } from '@angular/core';
 import {extend, injectBeforeRender} from 'angular-three';
 import {Group, Object3D} from 'three';
-import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import {MeteoComponent} from '../meteo/meteo.component';
+
 @Directive({
     selector: '[cursorPointer]',
     standalone: true,
@@ -30,13 +29,13 @@ export class CursorPointer {
 @Component({
     standalone: true,
     template: `
-  <!--      <ngt-group class="h-24" #group cursorPointer>
+      <ngt-group  #group cursorPointer>
             &lt;!&ndash; L'objet sera inséré ici dynamiquement &ndash;&gt;
-        </ngt-group>-->
+        </ngt-group>
     `,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CursorPointer],
+    imports: [CursorPointer]
 })
 export class Experience {
     private groupRef = viewChild.required<ElementRef<Group>>('group');
