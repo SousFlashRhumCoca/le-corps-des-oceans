@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgtCanvas } from 'angular-three';
-import { Experience } from './experience/experience.component';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { AnatomyComponent } from './anatomy/anatomy.component';
 
 @Component({
   selector: 'app-root',
@@ -13,5 +12,5 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
   imports: [NgtCanvas],
 })
 export class AppComponent {
-  sceneGraph = Experience;
+  sceneGraph = AnatomyComponent;
 }
