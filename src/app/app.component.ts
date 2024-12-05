@@ -1,7 +1,6 @@
 import { Component, isDevMode } from '@angular/core';
 import { NgtCanvas } from 'angular-three';
-import { Experience } from './experience/experience.component';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {AnatomyComponent} from './anatomy/anatomy.component';
 
@@ -10,7 +9,7 @@ import {AnatomyComponent} from './anatomy/anatomy.component';
   standalone: true,
   template: `
     <nav>
-        <a routerLink="/Experience">Experience</a>
+        <a routerLink="/Anatomy">Experience</a>
         <a routerLink="/Meteo">Meteo</a>
     </nav>
     <router-outlet></router-outlet>

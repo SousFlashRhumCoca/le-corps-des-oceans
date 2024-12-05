@@ -2,9 +2,10 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import {provideRouter, Routes} from '@angular/router';
 import {MeteoComponent} from './meteo/meteo.component';
 import {AnatomyComponent} from './anatomy/anatomy.component';
+import {SqueletteComponent} from './squelette/squelette.component';
 
 const routes: Routes = [
-    {path:'Anatomy',component:AnatomyComponent},
+    {path:'Anatomy',component:SqueletteComponent},
     {path:'Meteo', component:MeteoComponent}
 
 ]
