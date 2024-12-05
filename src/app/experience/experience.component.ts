@@ -1,68 +1,65 @@
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  ElementRef,
-  inject,
-  signal,
-  viewChild,
+    ChangeDetectionStrategy,
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    Directive,
+    ElementRef,
+    inject,
+    viewChild,
 } from '@angular/core';
-import { extend, getLocalState, injectBeforeRender, injectObjectEvents } from 'angular-three';
-import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three';
-
+import {extend, injectBeforeRender} from 'angular-three';
+import {Group, Object3D} from 'three';
+import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 @Directive({
-  selector: '[cursorPointer]',
-  standalone: true,
+    selector: '[cursorPointer]',
+    standalone: true,
 })
 export class CursorPointer {
-  constructor() {
-    const document = inject(DOCUMENT);
-    const hostElement = inject<ElementRef<Mesh>>(ElementRef);
-    const mesh = hostElement.nativeElement;
+    constructor() {
+        const document = inject(DOCUMENT);
+        const hostElement = inject<ElementRef<Group>>(ElementRef);
+        const group = hostElement.nativeElement;
 
-    const localState = getLocalState(mesh);
-    if (!localState) return;
-
-    injectObjectEvents(() => mesh, {
-      pointerover: () => void (document.body.style.cursor = 'pointer'),
-      pointerout: () => void (document.body.style.cursor = 'default'),
-    });
-  }
+        if (!group) return;
+    }
 }
 
 @Component({
-  standalone: true,
-  template: `
-    <ngt-mesh
-      #mesh
-      cursorPointer
-      (click)="clicked.set(!clicked())"
-      (pointerover)="hovered.set(true)"
-      (pointerout)="hovered.set(false)"
-      [scale]="clicked() ? 1.5 : 1"
-    >
-      <ngt-box-geometry />
-      <ngt-mesh-basic-material [color]="hovered() ? 'hotpink' : 'orange'" />
-    </ngt-mesh>
-  `,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CursorPointer],
+    standalone: true,
+    template: `
+        <ngt-group #group cursorPointer>
+            <!-- L'objet sera inséré ici dynamiquement -->
+        </ngt-group>
+    `,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CursorPointer],
 })
 export class Experience {
-  private meshRef = viewChild.required<ElementRef<Mesh>>('mesh');
+    private groupRef = viewChild.required<ElementRef<Group>>('group');
 
-  protected hovered = signal(false);
-  protected clicked = signal(false);
+    loader = new GLTFLoader();
 
-  constructor() {
-    extend({ Mesh, BoxGeometry, MeshBasicMaterial });
-    injectBeforeRender(({ delta }) => {
-      const mesh = this.meshRef().nativeElement;
-      mesh.rotation.x += delta;
-      mesh.rotation.y += delta;
-    });
-  }
+    constructor() {
+        // Étendre les classes nécessaires à Three.js
+        extend({Group, Object3D});
+
+        // Charger le fichier OBJ
+        this.loader.load('Splanchnology.glb', (object) => {
+            // Récupérer le groupe
+            const group = this.groupRef().nativeElement as Group;
+
+            // Ajouter l'objet au groupe
+            group.add(object.scene);
+            object.scene.scale.set(2, 2, 2);
+        });
+
+        // Faire tourner le groupe continuellement
+        injectBeforeRender(({delta}) => {
+            const group = this.groupRef().nativeElement as Group;
+            group.rotation.y += delta;
+        });
+    }
 }
