@@ -5,25 +5,37 @@ import {
     ElementRef,
     viewChild,
 } from '@angular/core';
-import { NgFor } from '@angular/common';
+import {NgFor} from '@angular/common';
 import {extend, injectStore, NgtArgs} from 'angular-three';
 import {MTLLoader, OBJLoader, OrbitControls} from 'three-stdlib';
-import { AmbientLight, DirectionalLight, Group, Object3D, Mesh, MeshBasicMaterial, SphereGeometry, Vector3, Clock, Euler } from 'three';
+import {
+    AmbientLight,
+    DirectionalLight,
+    Group,
+    Object3D,
+    Mesh,
+    MeshBasicMaterial,
+    SphereGeometry,
+    Vector3,
+    Clock,
+    Euler
+} from 'three';
+import {DialogService} from "../dialog/dialog.service";
 
 @Component({
     standalone: true,
     template: `
         <ngt-group #group>
-            <ngt-orbit-controls *args="[camera(), glDomElement()]" />
-            <ngt-grid-helper />
+            <ngt-orbit-controls *args="[camera(), glDomElement()]"/>
+            <ngt-grid-helper/>
 
             <!-- The object will be dynamically inserted here -->
 
             <ngt-mesh
-                *ngFor="let point of points"
-                (click)="onSphereClick(point)"
-                [position]="point.position"
-                [scale]="0.1"
+                    *ngFor="let point of points"
+                    (click)="onSphereClick(point)"
+                    [position]="point.position"
+                    [scale]="0.1"
             >
                 <ngt-sphere-geometry/>
                 <ngt-mesh-basic-material [parameters]="{ color: 'red' }"/>
@@ -51,21 +63,36 @@ export class AnatomyComponent {
             position: [0.4, 3, 0.5],
             positionCamera: [1.5, 3, 3],
             rotationCamera: [0, 0, 0],
+            title: "La peau et la surface de l’eau",
+            citation: "La surface des océans régule la chaleur et protège les profondeurs, mais une pollution excessive brise cette harmonie. Notre peau agit pareillement : saine, elle nous protège et respire, mais endommagée, elle devient une porte ouverte aux agressions extérieures.   "
         },
         {
             position: [0, 0, 0.5],
             positionCamera: [1, 0, 2.5],
             rotationCamera: [0, 0, 0],
+            title: "Le système circulatoire et les courants marins",
+            citation: "Quand les courants marins coulent librement, ils répartissent la chaleur et les nutriments, nourrissant les écosystèmes. Mais qu’un courant soit bloqué, et c’est tout un océan qui souffre. Il en va de même pour notre sang : des artères dégagées assurent la vie, tandis qu’un blocage met tout en péril."
         },
         {
             position: [0, 2, -0.7],
             positionCamera: [1, 2, -3],
             rotationCamera: [0, Math.PI + 0.1, 0],
+            title: "Les reins et les marées",
+            citation: "Les marées, en régulant les flux et nettoyant les rivages, préservent l’équilibre des côtes. Si elles viennent à s'altérer, l’accumulation des déchets menace les écosystèmes. De même, nos reins filtrent les toxines pour nous maintenir en bonne santé, mais quand ils faiblissent, c’est tout notre corps qui s’empoisonne."
         },
     ]
 
-    constructor() {
-        extend({ Group, Object3D, AmbientLight, DirectionalLight, OrbitControls, Mesh, SphereGeometry, MeshBasicMaterial });
+    constructor(private dialogService: DialogService) {
+        extend({
+            Group,
+            Object3D,
+            AmbientLight,
+            DirectionalLight,
+            OrbitControls,
+            Mesh,
+            SphereGeometry,
+            MeshBasicMaterial
+        });
 
         this.mtlLoader.load('https://static.rullo.fr/anatomy.mtl', (materials) => {
             materials.preload();
@@ -135,6 +162,11 @@ export class AnatomyComponent {
             return;
         }
 
+        this.dialogService.openDialog(point.title, point.citation).subscribe((x) => {
+            if (x == 'continued') {
+                this.resetCamera();
+            }
+        })
         this.zoomCamera(new Vector3(...point.positionCamera), new Euler(...point.rotationCamera), 2);
     }
 }
