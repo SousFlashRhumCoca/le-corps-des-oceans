@@ -31,7 +31,7 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": [
+        "urls": [
           "https://static.rullo.fr/*"
         ]
       }
