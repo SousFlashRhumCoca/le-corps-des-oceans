@@ -1,0 +1,10 @@
+{
+  "/static": {
+    "target": "https://static.rullo.fr",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/static": ""
+    }
+  }
+}
