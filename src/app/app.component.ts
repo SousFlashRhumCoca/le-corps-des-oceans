@@ -1,6 +1,6 @@
 import { Component, isDevMode } from '@angular/core';
 import { NgtCanvas } from 'angular-three';
-import { Experience } from './experience/experience.component';
+import { AnatomyComponent } from './anatomy/anatomy.component';
 
 import { H } from 'highlight.run';
 
@@ -27,5 +27,5 @@ if (!isDevMode()) {
   imports: [NgtCanvas],
 })
 export class AppComponent {
-  sceneGraph = Experience;
+  sceneGraph = AnatomyComponent;
 }
