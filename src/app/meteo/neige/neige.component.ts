@@ -7,24 +7,24 @@ import {NgClass} from '@angular/common';
   imports: [NgClass],
   template: `
     <div class="snowflakes" aria-hidden="true">
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
-      <div class="snowflake">❄</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
-      <div class="snowflake">❄</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
-      <div class="snowflake">❄</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❆</div>
+      <div class="snowflake, text-2xl">❅</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
+      <div class="snowflake text-2xl">❄</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
+      <div class="snowflake text-2xl">❄</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
+      <div class="snowflake text-2xl">❄</div>
+      <div class="snowflake text-2xl">❅</div>
+      <div class="snowflake text-2xl">❆</div>
     </div>
   `,
   styleUrl: './neige.component.css'

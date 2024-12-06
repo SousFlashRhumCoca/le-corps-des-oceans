@@ -1,9 +1,18 @@
+/* src/app/meteo/neige/neige.component.css */
 @keyframes fall {
   0% {
-    transform: translateY(0);
+    transform: translateY(-100vh); /* Start above the viewport */
+    opacity: 0; /* Invisible at the start */
+  }
+  10% {
+    opacity: 1; /* Visible when starting to fall */
+  }
+  90% {
+    opacity: 1; /* Visible while falling */
   }
   100% {
-    transform: translateY(100vh);
+    transform: translateY(100vh); /* End below the viewport */
+    opacity: 0; /* Invisible at the end */
   }
 }
 
@@ -12,7 +21,7 @@
 }
 
 .snowflake {
-  @apply absolute top-0 text-white text-lg select-none;
+  @apply absolute top-0 text-white text-6xl select-none; /* Increase text size to 6xl */
   animation: fall linear infinite;
 }
 
