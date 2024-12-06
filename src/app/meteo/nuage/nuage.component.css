@@ -15,16 +15,17 @@
     height: 200px;
     overflow: hidden;
     pointer-events: none;
+    @apply z-50;
 }
 
 .cloud {
     position: absolute;
+    left: 300px;
     top: 0;
     width: 200px;
     height: 100px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     animation: moveClouds linear infinite;
 }
 
@@ -36,4 +37,8 @@
 .cloud:nth-child(2) {
     left: 50%;
     animation-duration: 40s;
+}
+.cloud:nth-child(3) {
+    left: 75%;
+    animation-duration: 50s;
 }

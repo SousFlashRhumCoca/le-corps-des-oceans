@@ -21,14 +21,13 @@ import {
     Euler, Scene, Color,
 } from 'three';
 import {DialogService} from "../dialog/dialog.service";
+import {SignalService} from "../../service/signal.service";
 
 @Component({
     standalone: true,
     template: `
         <ngt-group #group>
             <ngt-orbit-controls *args="[camera(), glDomElement()]"/>
-            <ngt-grid-helper/>
-
             <!-- The object will be dynamically inserted here -->
 
             <ngt-mesh
@@ -126,7 +125,8 @@ export class AnatomyComponent {
         },
     ]
 
-  constructor(private dialogService: DialogService) {
+  constructor(private dialogService: DialogService,
+              private signalService: SignalService,) {
     extend({
       Group,
       Object3D,
@@ -237,9 +237,11 @@ export class AnatomyComponent {
             return;
         }
 
+        this.signalService.setData(false);
         this.dialogService.openDialog(point.title, point.citation).subscribe((x) => {
             if (x == 'continued') {
                 this.resetCamera();
+                this.signalService.setData(true)
             }
         })
         this.zoomCamera(new Vector3(...point.positionCamera), new Euler(...point.rotationCamera), 2);
