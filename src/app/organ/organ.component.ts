@@ -11,6 +11,7 @@ import { LungsAnatomyComponent } from '../lungs-anatomy/lungs-anatomy.component'
 import { SpinalCordAnatomyComponent } from '../spinal-cord-anatomy/spinal-cord-anatomy.component';
 import { StomacAnatomyComponent } from '../stomac-anatomy/stomac-anatomy.component';
 import { TesticlesAnatomyComponent } from '../testicles-anatomy/testicles-anatomy.component';
+import {FootAnatomyComponent} from "../foot-anatomy/foot-anatomy.component";
 
 @Component({
   selector: 'app-organ',
@@ -179,7 +180,7 @@ export class OrganComponent implements OnInit {
         'Les pieds interagissent directement avec le sol pour permettre les déplacements.',
         "Les zones littorales sont en interaction constante avec les vagues et les marées, influençant l'écosystème environnant",
       ];
-      this.sceneGraph = SpinalCordAnatomyComponent;
+      this.sceneGraph = FootAnatomyComponent;
     }
   }
 

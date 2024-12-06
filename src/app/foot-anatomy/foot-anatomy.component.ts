@@ -51,7 +51,7 @@ export class FootAnatomyComponent {
 
     this.gltfLoader.load('https://static.rullo.fr/foot.glb', (gltf) => {
       const object = gltf.scene;
-      object.scale.set(50, 50, 50);
+      object.scale.set(1.5, 1.5, 1.5);
       object.position.set(0, 0, 0);
       gltf.scene.traverse((child) => {
         if ((child as Mesh).isMesh) {
