@@ -21,7 +21,7 @@
 }
 
 .snowflake {
-  @apply absolute top-0 text-white text-6xl select-none; /* Increase text size to 6xl */
+  @apply absolute top-0 text-white text-4xl select-none; /* Increase text size to 6xl */
   animation: fall linear infinite;
 }
 

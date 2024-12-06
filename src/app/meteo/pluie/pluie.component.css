@@ -12,7 +12,7 @@
 }
 
 .raindrop {
-  @apply absolute top-0 text-blue-500 text-6xl select-none;
+  @apply absolute top-0 text-blue-500 text-4xl select-none;
   animation: rain linear infinite;
 }
 
