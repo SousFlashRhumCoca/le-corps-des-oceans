@@ -110,6 +110,12 @@ export class AnatomyComponent {
             citation: "Les récifs coralliens sont des centres de vie et de reproduction. Ils abritent une biodiversité massive et jouent un rôle clé dans le renouvellement de nombreuses espèces marines. Sans eux, l'écosystème marin perdrait une grande partie de sa vitalité et de sa capacité à se perpétuer."
         },
         {
+            position: [-0.6, -4.5, -0.1],
+            positionCamera: [1, -3.8, 2.5],
+            rotationCamera: [0, 0, 0],
+            title: "Les pieds et les zones littorales rocheuses",
+            citation: "Les pieds interagissent directement avec le sol pour permettre les déplacements. Les zones littorales sont en interaction constante avec les vagues et les marées, influençant l'écosystème environnant"},
+        {
             position: [-0.4, 1.5, -0.3],
             positionCamera: [-1.4, 2, -3],
             rotationCamera: [0, Math.PI + 0.1, 0],
@@ -161,7 +167,7 @@ export class AnatomyComponent {
             materials.preload();
             this.objLoader.setMaterials(materials);
             this.objLoader.load('https://static.rullo.fr/anatomy.obj', (object: Object3D) => {
-                // Retrieve the group
+                signalService.setLoading(false);
                 const group = this.groupRef().nativeElement;
 
                 // Add the object to the group
@@ -178,7 +184,7 @@ export class AnatomyComponent {
                 directionalLight.position.set(5, 10, 7.5);
                 group.add(directionalLight);
 
-                this.camera().position.set(0, 0, 8);
+                this.camera().position.set(0, 0, 9);
             });
         });
     }

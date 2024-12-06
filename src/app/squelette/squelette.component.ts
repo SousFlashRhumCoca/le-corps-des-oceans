@@ -69,13 +69,16 @@ export class SqueletteComponent implements OnInit {
   displayTitle: boolean = false;
   sceneGraph = AnatomyComponent;
     public weatherCondition: string | null = null;
+    displayLoader: boolean = false;
 
-  temperatures: number[] = []
+
+    temperatures: number[] = []
   arbitrateTemperature = 20;
 
     constructor(private http: HttpClient, private signalService: SignalService) {
         effect(() => {
             this.displayTitle = this.signalService.getData()();
+            this.displayLoader = this.signalService.getLoading()();
         });
     }
 
