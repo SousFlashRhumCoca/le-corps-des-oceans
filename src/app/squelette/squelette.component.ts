@@ -7,6 +7,11 @@ import {NgtCanvas} from 'angular-three';
   standalone: true,
   imports: [NgtCanvas],
   template: `
+    <style>
+      ngt-canvas {
+        background: skyblue;
+      }
+    </style>
     <ngt-canvas [sceneGraph]="sceneGraph" />
   `,
   styles: ``

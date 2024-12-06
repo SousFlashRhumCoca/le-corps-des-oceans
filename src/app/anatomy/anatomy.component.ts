@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {NgFor} from '@angular/common';
 import {extend, injectStore, NgtArgs} from 'angular-three';
-import {MTLLoader, OBJLoader, OrbitControls} from 'three-stdlib';
+import {GLTFLoader, MTLLoader, OBJLoader, OrbitControls} from 'three-stdlib';
 import {
     AmbientLight,
     DirectionalLight,
@@ -18,7 +18,7 @@ import {
     SphereGeometry,
     Vector3,
     Clock,
-    Euler
+    Euler,
 } from 'three';
 import {DialogService} from "../dialog/dialog.service";
 
@@ -53,10 +53,12 @@ export class AnatomyComponent {
 
     private mtlLoader = new MTLLoader();
     private objLoader = new OBJLoader();
+    private gltfLoader = new GLTFLoader();
 
     private store = injectStore();
     protected camera = this.store.select('camera');
     protected glDomElement = this.store.select('gl', 'domElement');
+    private waterObject: Object3D | null = null;
 
     points = [
         {
@@ -82,16 +84,33 @@ export class AnatomyComponent {
         },
     ]
 
-    constructor(private dialogService: DialogService) {
-        extend({
-            Group,
-            Object3D,
-            AmbientLight,
-            DirectionalLight,
-            OrbitControls,
-            Mesh,
-            SphereGeometry,
-            MeshBasicMaterial
+  constructor(private dialogService: DialogService) {
+    extend({
+      Group,
+      Object3D,
+      AmbientLight,
+      DirectionalLight,
+      OrbitControls,
+      Mesh,
+      SphereGeometry,
+      MeshBasicMaterial
+    });
+
+        this.gltfLoader.load('https://static.rullo.fr/water_waves.glb', (gltf) => {
+            const object = gltf.scene;
+            object.scale.set(0.1, 0.1, 0.1);
+            object.position.set(0, 0, 0);
+            object.traverse((child) => {
+                if (child instanceof Mesh) {
+                    const material = child.material as MeshBasicMaterial;
+                    material.color.set('skyblue');
+                    material.transparent = true;
+                    material.opacity = 0.3;
+                }
+            });
+            this.groupRef().nativeElement.add(object);
+            this.waterObject = object;
+            this.animateWaves();
         });
 
         this.mtlLoader.load('https://static.rullo.fr/anatomy.mtl', (materials) => {
@@ -118,6 +137,18 @@ export class AnatomyComponent {
                 this.camera().position.set(0, 0, 8);
             });
         });
+    }
+
+    animateWaves() {
+        const animate = () => {
+            if (this.waterObject) {
+                const elapsedTime = this.clock.getElapsedTime();
+                this.waterObject.position.y = -5 + Math.sin(elapsedTime) * 0.1; // Adjust the amplitude as needed
+                this.waterObject.rotation.z = Math.sin(elapsedTime) * 0.05; // Adjust the rotation as needed
+            }
+            requestAnimationFrame(animate);
+        };
+        animate();
     }
 
     zoomCamera(targetPosition: Vector3, targetRotation: Euler, duration: number) {
