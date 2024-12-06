@@ -21,6 +21,7 @@ import {
     Euler, Scene, Color,
 } from 'three';
 import {DialogService} from "../dialog/dialog.service";
+import { Router } from '@angular/router';
 import {SignalService} from "../../service/signal.service";
 
 @Component({
@@ -64,74 +65,65 @@ export class AnatomyComponent {
             position: [0.4, 2.8, 0.5],
             positionCamera: [1.5, 3, 3],
             rotationCamera: [0, 0, 0],
-            title: "Le cœur et les tourbillons océaniques",
-            citation: "Les tourbillons océaniques concentrent l’énergie et la redistribuent. Mais s’ils se désorganisent, c’est le chaos des courants. Le cœur, s’il est fort, propulse la vie dans tout notre corps, mais un battement désordonné peut bouleverser l’ensemble de notre équilibre. "
+            anatomyId: "1"
         },
         {
             position: [0.1, 4.8, 0.5],
             positionCamera: [1.5, 5.8, 3],
             rotationCamera: [0, 0, 0],
-            title: "Le cerveau de l'océan, ce sont ses zones de convergence climatique et biologiques",
-            citation: "le gyre océanique global ou les zones où le phytoplancton prolifère. Ces zones stratégiques \"pensent\" pour l'océan en orchestrant le transport de la chaleur, des nutriments, et en régulant les écosystèmes marins. "
+            anatomyId: "2"
         },
         {
             position: [0.4, 1.8, 0.6],
             positionCamera: [1.5, 2, 3],
             rotationCamera: [0, 0, 0],
-            title: "Le estomac et les abysses océaniques",
-            citation: "Les abysses sont comme l'estomac de l'océan : c'est là que les matières organiques coulent et se décomposent. Les organismes qui y vivent, comme les détritivores (crevettes, crabes, étoiles de mer), transforment les débris en nutriments utilisables pour l'écosystème global. "
+            anatomyId: "3"
         },
         {
             position: [-0.5, 2.8, 0.5],
             positionCamera: [-0.3, 3, 3],
             rotationCamera: [0, 0, 0],
-            title: "Le système respiratoire et les échanges atmosphériques océaniques",
-            citation: "Les échanges entre l’océan et l’atmosphère assurent l’équilibre des gaz vitaux. Une perturbation, et c’est l’acidification des eaux, une crise pour la planète. De la même manière, des poumons sains garantissent notre souffle, mais un air pollué ou une fonction altérée, et c’est la vie elle-même qui s’étouffe. "
+            anatomyId: "4"
         },
         {
             position: [0.1, 0.9, 0.5],
             positionCamera: [1.5, 1.1, 3],
             rotationCamera: [0, 0, 0],
-            title: "Les intestins et les écosystèmes marins",
-            citation: "Les récifs coralliens, riches et équilibrés, abritent une vie abondante. Mais si leur biodiversité décline, les océans en souffrent. De même, nos intestins, en bonne santé, nourrissent tout notre être, mais leur dérèglement peut être à l’origine de maladies profondes. "
-        },
+            anatomyId: "5"
+},
         {
             position: [-1.5, 0.5, 0.1],
             positionCamera: [-2.5, 1, 2.5],
             rotationCamera: [0, 0, 0],
-            title: "La peau et la surface de l’eau",
-            citation: "La surface des océans régule la chaleur et protège les profondeurs, mais une pollution excessive brise cette harmonie. Notre peau agit pareillement : saine, elle nous protège et respire, mais endommagée, elle devient une porte ouverte aux agressions extérieures."
+            anatomyId: "6"
         },
         {
             position: [0.1, -0.6, 0.5],
             positionCamera: [1, -0.2, 2.5],
             rotationCamera: [0, 0, 0],
-            title: "Les testicules et les récifs coralliens",
-            citation: "Les récifs coralliens sont des centres de vie et de reproduction. Ils abritent une biodiversité massive et jouent un rôle clé dans le renouvellement de nombreuses espèces marines. Sans eux, l'écosystème marin perdrait une grande partie de sa vitalité et de sa capacité à se perpétuer."
+            anatomyId: "7"
         },
-        {
-            position: [-0.6, -4.5, -0.1],
-            positionCamera: [1, -3.8, 2.5],
-            rotationCamera: [0, 0, 0],
-            title: "Les pieds et les zones littorales rocheuses",
-            citation: "Les pieds interagissent directement avec le sol pour permettre les déplacements. Les zones littorales sont en interaction constante avec les vagues et les marées, influençant l'écosystème environnant"},
         {
             position: [-0.4, 1.5, -0.3],
             positionCamera: [-1.4, 2, -3],
             rotationCamera: [0, Math.PI + 0.1, 0],
-            title: "Les reins et les marées",
-            citation: "Les marées, en régulant les flux et nettoyant les rivages, préservent l’équilibre des côtes. Si elles viennent à s'altérer, l’accumulation des déchets menace les écosystèmes. De même, nos reins filtrent les toxines pour nous maintenir en bonne santé, mais quand ils faiblissent, c’est tout notre corps qui s’empoisonne."
+            anatomyId: "8"
         },
         {
             position: [0, 1.5, -0.4],
             positionCamera: [1, 2.5, -3],
             rotationCamera: [0, Math.PI + 0.1, 0],
-            title: "La moelle épinière et les courants marins",
-            citation: "Les marées, en régulant les flux et nettoyant les rivages, préservent l’équilibre des côtes. Si elles viennent à s'altérer, l’accumulation des déchets menace les écosystèmes. De même, nos reins filtrent les toxines pour nous maintenir en bonne santé, mais quand ils faiblissent, c’est tout notre corps qui s’empoisonne."
+            anatomyId: "9",
         },
+      {
+        position: [-0.6, -4.5, -0.1],
+        positionCamera: [1, -3.8, 2.5],
+        rotationCamera: [0, 0, 0],
+        anatomyId: "10",
+      }
     ]
 
-  constructor(private dialogService: DialogService,
+  constructor(private router: Router, private dialogService: DialogService,
               private signalService: SignalService,) {
     extend({
       Group,
@@ -244,12 +236,10 @@ export class AnatomyComponent {
         }
 
         this.signalService.setData(false);
-        this.dialogService.openDialog(point.title, point.citation).subscribe((x) => {
-            if (x == 'continued') {
-                this.resetCamera();
-                this.signalService.setData(true)
-            }
-        })
-        this.zoomCamera(new Vector3(...point.positionCamera), new Euler(...point.rotationCamera), 2);
+
+      this.zoomCamera(new Vector3(...point.positionCamera), new Euler(...point.rotationCamera), 2);
+      setTimeout(() => {
+        this.router.navigate(['/organ'], { queryParams: { inputString: point.anatomyId } });
+      }, 2000);
     }
 }

@@ -28,5 +28,4 @@ if (!isDevMode()) {
   imports: [RouterOutlet],
 })
 export class AppComponent {
-  sceneGraph = AnatomyComponent;
 }
