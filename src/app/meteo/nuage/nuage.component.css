@@ -1,0 +1,39 @@
+/* src/app/meteo/nuage/nuage.component.css */
+@keyframes moveClouds {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.clouds {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.cloud {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: moveClouds linear infinite;
+}
+
+.cloud:nth-child(1) {
+    left: 0;
+    animation-duration: 30s;
+}
+
+.cloud:nth-child(2) {
+    left: 50%;
+    animation-duration: 40s;
+}

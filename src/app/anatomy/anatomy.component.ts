@@ -160,7 +160,7 @@ export class AnatomyComponent {
         this.mtlLoader.load('https://static.rullo.fr/anatomy.mtl', (materials) => {
             materials.preload();
             this.objLoader.setMaterials(materials);
-            this.objLoader.load('anatomy.obj', (object: Object3D) => {
+            this.objLoader.load('https://static.rullo.fr/anatomy.obj', (object: Object3D) => {
                 // Retrieve the group
                 const group = this.groupRef().nativeElement;
 

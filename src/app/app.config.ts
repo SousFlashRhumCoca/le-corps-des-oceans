@@ -6,6 +6,7 @@ import {SqueletteComponent} from './squelette/squelette.component';
 import { provideServiceWorker } from '@angular/service-worker';
 
 const routes: Routes = [
+    {path:'',component:SqueletteComponent},
     {path:'Anatomy',component:SqueletteComponent},
     {path:'Meteo', component:MeteoComponent}
 

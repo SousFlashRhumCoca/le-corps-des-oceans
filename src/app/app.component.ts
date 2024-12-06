@@ -23,10 +23,6 @@ if (!isDevMode()) {
   selector: 'app-root',
   standalone: true,
   template: `
-    <nav>
-        <a routerLink="/Anatomy">Anatomy</a>
-        <a routerLink="/Meteo">Meteo</a>
-    </nav>
     <router-outlet></router-outlet>
     
   `,

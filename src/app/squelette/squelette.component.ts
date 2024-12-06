@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AnatomyComponent} from '../anatomy/anatomy.component';
 import {NgtCanvas} from 'angular-three';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {NgClass} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
+import {NeigeComponent} from '../meteo/neige/neige.component';
+import {PluieComponent} from '../meteo/pluie/pluie.component';
+import {SoleilComponent} from '../meteo/soleil/soleil.component';
+import {NuageComponent} from '../meteo/nuage/nuage.component';
 
 @Component({
   selector: 'app-squelette',
   standalone: true,
-  imports: [NgtCanvas, NgClass,HttpClientModule],
+  imports: [NgtCanvas, NgClass, HttpClientModule, NeigeComponent, NgIf, PluieComponent, SoleilComponent, NuageComponent],
   template: `
+    
+    <app-neige *ngIf="this.weatherCondition==='Neige'" [ngClass]="bgColor"></app-neige>
+    <app-pluie *ngIf="weatherCondition==='Pluie'" [ngClass]="bgColor"></app-pluie>
+    <app-soleil *ngIf="weatherCondition==='Ensoleillé'" [ngClass]="bgColor" ></app-soleil>
+    <app-nuage></app-nuage>
     <ngt-canvas [ngClass]="bgColor" [sceneGraph]="sceneGraph" />
     <div class="absolute text-gray-500 p-5 left-3 bottom-3 rounded bg-white bg-opacity-50 pointer-events-none">
       <ul class="list-disc list-inside dark:text-gray-400">
@@ -32,10 +41,11 @@ import {NgClass} from '@angular/common';
     }
   `
 })
-export class SqueletteComponent {
+export class SqueletteComponent implements OnInit{
   sceneGraph = AnatomyComponent;
   temperatures = [] = []
-  arbitrateTemperature = 20;
+  public weatherCondition: string | null = null;
+
 
   constructor(private http: HttpClient) {
   }
@@ -53,10 +63,10 @@ export class SqueletteComponent {
     const params = {
       latitude: '43.296398', // Paris (exemple)
       longitude: '5.370000',
-      hourly: 'temperature_2m',
+      hourly: 'temperature_2m,snowfall,cloudcover,weathercode',
     };
 
-    this.http.get(`https://api.open-meteo.com/v1/forecast?latitude=${params.latitude}&longitude=${params.longitude}&hourly=temperature_2m`).subscribe((data: any) => {
+    this.http.get(apiUrl,{params}).subscribe((data: any) => {
       this.processWeatherData(data);
       console.log(data);
     });
@@ -66,6 +76,22 @@ export class SqueletteComponent {
     const hourlyData = data.hourly;
     this.temperatures = hourlyData.temperature_2m.slice(0, 24); // Températures pour 24 heures
     this.hours = hourlyData.time.slice(0, 24).map((time: string) => time.split('T')[1]); // Heures (HH:mm)
+
+    const snowfall = hourlyData.snowfall[0];
+    const cloudcover = hourlyData.cloudcover[0];
+
+    if (snowfall > 0) {
+      this.weatherCondition = 'Neige';
+    }else if (snowfall> 0 && this.temperatures[this.temperatures.length -1] > 0) {
+      this.weatherCondition = 'Pluie';
+    }
+    else if (cloudcover < 20) {
+      this.weatherCondition = 'Ensoleillé';
+    } else if (cloudcover < 80) {
+      this.weatherCondition = 'Nuageux'
+    } else {
+      this.weatherCondition = 'Nuageux';
+    }
   }
 
   ngOnInit(): void {
