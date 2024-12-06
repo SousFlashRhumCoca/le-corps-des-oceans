@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {NgClass} from '@angular/common';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { NgClass } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { PluieComponent } from './pluie/pluie.component';
+import { SoleilComponent } from './soleil/soleil.component';
 
 
 
@@ -9,9 +11,11 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
   standalone: true,
   imports: [
     NgClass,
+    SoleilComponent,
     HttpClientModule
   ],
   template: `
+    <app-soleil></app-soleil>
     <div [ngClass]="bgColor">
       <p>Le nombre est : {{ temperatures[this.temperatures.length -1] }}</p> 
       <button (click)="changeNumber()">Changer le nombre</button>
