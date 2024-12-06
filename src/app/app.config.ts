@@ -1,8 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import {provideRouter, Routes} from '@angular/router';
 import {MeteoComponent} from './meteo/meteo.component';
 import {AnatomyComponent} from './anatomy/anatomy.component';
 import {SqueletteComponent} from './squelette/squelette.component';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const routes: Routes = [
     {path:'Anatomy',component:SqueletteComponent},
@@ -11,5 +12,8 @@ const routes: Routes = [
 ]
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }),provideRouter(routes)],
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }),provideRouter(routes), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          })],
 };
