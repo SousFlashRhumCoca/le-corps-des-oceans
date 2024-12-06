@@ -51,8 +51,8 @@ export class SqueletteComponent {
   async getWeatherData() {
     const apiUrl = 'https://api.open-meteo.com/v1/forecast';
     const params = {
-      latitude: '48.8566', // Paris (exemple)
-      longitude: '2.3522',
+      latitude: '43.296398', // Paris (exemple)
+      longitude: '5.370000',
       hourly: 'temperature_2m',
     };
 
