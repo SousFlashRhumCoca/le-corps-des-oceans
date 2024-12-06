@@ -59,7 +59,7 @@ import {SignalService} from "../../service/signal.service";
 
           </div>
         </div>
-        <ul class="list-disc list-inside dark:text-gray-400">
+        <ul class="list-disc list-inside text-xs">
           <li>Commencez par vous balader autour du corps</li>
           <li>Cliquez sur les parties du corps qui vous intéressent</li>
           <li>Puis recommencez</li>
