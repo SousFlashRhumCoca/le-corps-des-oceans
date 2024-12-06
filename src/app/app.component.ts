@@ -1,7 +1,6 @@
-import { Component, isDevMode } from '@angular/core';
-import { NgtCanvas } from 'angular-three';
+import {Component, isDevMode} from '@angular/core';
 
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {AnatomyComponent} from './anatomy/anatomy.component';
 
 import {H} from 'highlight.run';
@@ -23,15 +22,10 @@ if (!isDevMode()) {
   selector: 'app-root',
   standalone: true,
   template: `
-    <nav>
-        <a routerLink="/Anatomy">Anatomy</a>
-        <a routerLink="/Meteo">Meteo</a>
-    </nav>
     <router-outlet></router-outlet>
-    
   `,
   host: { class: 'block h-dvh w-full' },
-  imports: [NgtCanvas, RouterOutlet, RouterLink],
+  imports: [RouterOutlet],
 })
 export class AppComponent {
   sceneGraph = AnatomyComponent;
