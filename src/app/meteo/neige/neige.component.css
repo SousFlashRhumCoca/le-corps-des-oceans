@@ -17,7 +17,7 @@
 }
 
 .snowflakes {
-  @apply absolute top-0 left-0 w-full h-full overflow-hidden z-50 pointer-events-none;
+  @apply absolute -top-10 left-0 w-full h-full overflow-hidden z-50 pointer-events-none;
 }
 
 .snowflake {
