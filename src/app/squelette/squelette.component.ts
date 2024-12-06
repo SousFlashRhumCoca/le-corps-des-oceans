@@ -18,10 +18,29 @@ import {SignalService} from "../../service/signal.service";
             </h1>
             <ngt-canvas [ngClass]="bgColor" [sceneGraph]="sceneGraph"/>
         </div>
+
         <div class="absolute text-gray-500 p-5 left-3 bottom-3 rounded bg-white bg-opacity-50 pointer-events-none">
+            <div [style.display]="displayLoader ? 'block' : 'none'" class="flex items-center justify-center w-full h-full">
+                <div class="flex items-center space-x-1 font-bold">
+                    <div>Chargement du modèle</div>
+
+                    <svg fill='none' class="w-8 h-8 animate-spin" viewBox="0 0 32 32"
+                         xmlns='http://www.w3.org/2000/svg'>
+                        <path clip-rule='evenodd'
+                              d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
+                              fill='currentColor' fill-rule='evenodd'/>
+                    </svg>
+
+
+                </div>
+            </div>
             <ul class="list-disc list-inside dark:text-gray-400">
+                <li>Commencez par vous balader autour du corps</li>
+                <li>Cliquez sur les parties du corps qui vous intéressent</li>
+                <li>Puis recommencez</li>
                 <li>https://sketchfab.com/3d-models/splanchnology-5cfafb312f504815aa3fec55735607a6</li>
                 <li>https://sketchfab.com/3d-models/water-waves-142c2596d1944cd0bf4fc1f490c4c248</li>
+                <li>Nuit de l\'info 2024 UHA 4.0</li>
             </ul>
         </div>
     `,
@@ -45,6 +64,7 @@ import {SignalService} from "../../service/signal.service";
 })
 export class SqueletteComponent {
     displayTitle: boolean = false;
+    displayLoader: boolean = false;
     sceneGraph = AnatomyComponent;
     temperatures = [] = []
     arbitrateTemperature = 20;
@@ -52,6 +72,7 @@ export class SqueletteComponent {
     constructor(private http: HttpClient, private signalService: SignalService) {
         effect(() => {
             this.displayTitle = this.signalService.getData()();
+            this.displayLoader = this.signalService.getLoading()();
         });
     }
 
