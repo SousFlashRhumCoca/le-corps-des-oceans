@@ -15,6 +15,7 @@ import {SignalService} from "../../service/signal.service";
   imports: [NgtCanvas, NgClass, HttpClientModule, NeigeComponent, NgIf, PluieComponent, SoleilComponent, NuageComponent],
   template: `
       <div class="absolute z-10 right-0 flex gap-3">
+        <p class=" relative  z-10 text-5xl font-bold">{{this.temperatures[this.temperatures.length -1]}} C°</p>
           <button type='button' (click)="handleClickWeather('sun')">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="size-10"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </button>
@@ -38,6 +39,7 @@ import {SignalService} from "../../service/signal.service";
               <span class="text-6xl block">Bienvenue sur</span>
               <span class="text-9xl block">Le <br> Corps<br>Des<br> Océans</span>
           </h1>
+        
           <ngt-canvas [ngClass]="bgColor" [sceneGraph]="sceneGraph"/>
       </div>
     
