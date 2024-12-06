@@ -75,6 +75,7 @@ export class SqueletteComponent implements OnInit {
 
 
     temperatures: number[] = []
+    rain: number[] = []
   arbitrateTemperature = 20;
 
     constructor(private http: HttpClient, private signalService: SignalService) {
@@ -98,7 +99,7 @@ export class SqueletteComponent implements OnInit {
     const params = {
       latitude: '43.296398', // Paris (exemple)
       longitude: '5.370000',
-      hourly: 'temperature_2m,snowfall,cloudcover,weathercode',
+      hourly: 'temperature_2m,snowfall,cloudcover,rain,weathercode',
     };
 
     this.http.get(apiUrl,{params}).subscribe((data: any) => {
@@ -109,6 +110,7 @@ export class SqueletteComponent implements OnInit {
   }
   processWeatherData(data: any) {
     const hourlyData = data.hourly;
+    this.rain = hourlyData.rain.slice(0, 24); // Pluie pour 24 heures
     this.temperatures = hourlyData.temperature_2m.slice(0, 24); // Températures pour 24 heures
     this.hours = hourlyData.time.slice(0, 24).map((time: string) => time.split('T')[1]); // Heures (HH:mm)
 
@@ -117,7 +119,7 @@ export class SqueletteComponent implements OnInit {
 
     if (snowfall > 0) {
       this.weatherCondition = 'Neige';
-    }else if (snowfall> 0 && this.temperatures[this.temperatures.length -1] > 0) {
+    }else if (this.rain[this.rain.length -1] > 0) {
       this.weatherCondition = 'Pluie';
     }
     else if (cloudcover < 20) {
