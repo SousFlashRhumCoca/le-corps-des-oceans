@@ -22,7 +22,6 @@ import {FootAnatomyComponent} from "../foot-anatomy/foot-anatomy.component";
     <div class="text-container">
       <div *ngFor="let line of textLines; let i = index" class="text" [style.animationDelay]="i * 5 + 's'">
         {{ line }}
-        <div class="fadingEffect" [style.animationDelay]="i * 5 + 's'"></div>
       </div>
     </div>
     <div class="close-button" (click)="navigateToRoot()">&#10005;</div>
@@ -30,7 +29,9 @@ import {FootAnatomyComponent} from "../foot-anatomy/foot-anatomy.component";
   styles: [
     `
       ngt-canvas {
-        background: black;
+        background-image: url("/ocean.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
       }
 
       .text-container {
@@ -52,17 +53,6 @@ import {FootAnatomyComponent} from "../foot-anatomy/foot-anatomy.component";
         overflow: hidden;
         opacity: 0;
         animation: fadeIn 10s forwards;
-      }
-
-      .fadingEffect {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        background: black;
-        filter: blur(5px);
-        animation: showHide 10s ease-in forwards;
       }
 
       @keyframes fadeIn {
