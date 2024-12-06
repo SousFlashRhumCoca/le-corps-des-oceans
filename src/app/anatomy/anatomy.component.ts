@@ -18,7 +18,7 @@ import {
     SphereGeometry,
     Vector3,
     Clock,
-    Euler,
+    Euler, Scene, Color,
 } from 'three';
 import {DialogService} from "../dialog/dialog.service";
 
@@ -137,8 +137,10 @@ export class AnatomyComponent {
       SphereGeometry,
       MeshBasicMaterial
     });
+   // Remplacez 'skyblue' par la couleur désirée
 
-        this.gltfLoader.load('https://static.rullo.fr/water_waves.glb', (gltf) => {
+
+      this.gltfLoader.load('https://static.rullo.fr/water_waves.glb', (gltf) => {
             const object = gltf.scene;
             object.scale.set(0.1, 0.1, 0.1);
             object.position.set(0, 0, 0);
@@ -158,7 +160,7 @@ export class AnatomyComponent {
         this.mtlLoader.load('https://static.rullo.fr/anatomy.mtl', (materials) => {
             materials.preload();
             this.objLoader.setMaterials(materials);
-            this.objLoader.load('https://static.rullo.fr/anatomy.obj', (object: Object3D) => {
+            this.objLoader.load('anatomy.obj', (object: Object3D) => {
                 // Retrieve the group
                 const group = this.groupRef().nativeElement;
 
